@@ -1,0 +1,28 @@
+plugins {
+    id "java-library"
+
+    id "antlr"
+
+    id "com.github.spotbugs"
+}
+
+apply(from: rootProject.file("gradle/versions.gradle"))
+
+dependencies {
+    antlr("org.antlr:antlr:${versions.antlrVersion}")
+
+    testImplementation(platform("org.junit:junit-bom:${versions.junitVersion}"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    testImplementation("org.mockito:mockito-core:${versions.mockitoVersion}")
+    testImplementation("org.mockito:mockito-junit-jupiter:${versions.mockitoVersion}")
+
+    testImplementation("org.assertj:assertj-core:${versions.assertjVersion}")
+}
+
+tasks.named("test") {
+    useJUnitPlatform()
+}

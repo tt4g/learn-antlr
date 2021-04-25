@@ -1,0 +1,9 @@
+ext {
+    versions = [
+        spotbugsVersion: "4.2.3",
+        antlrVersion   : "4.9.2",
+        junitVersion   : "5.7.1",
+        mockitoVersion : "3.9.0",
+        assertjVersion : "3.19.0"
+    ]
+}

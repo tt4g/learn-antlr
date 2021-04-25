@@ -1,0 +1,99 @@
+plugins {
+    id "com.github.ben-manes.versions"
+}
+
+apply(from: project.file("gradle/versions.gradle"))
+
+def projectEncoding = "UTF-8"
+def projectJdkVersion = 16
+
+allprojects {
+    group = "com.github.tt4g.learn.antlr"
+
+    repositories {
+        mavenCentral()
+    }
+
+    tasks.withType(JavaCompile) {
+        // Set `--release <JDK_VERSION>` option arguments of `javac`.
+        options.release.set(projectJdkVersion)
+        options.encoding = "${projectEncoding}"
+        options.compilerArgs += "-Xlint:all"
+    }
+
+    tasks.withType(Javadoc) {
+        options.encoding = "${projectEncoding}"
+    }
+
+    plugins.withId("java") {
+        java {
+            // Specify JDK version on Gradle 7.
+            // https://docs.gradle.org/7.0/userguide/toolchains.html
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(projectJdkVersion)
+                vendor = JvmVendorSpec.ADOPTOPENJDK
+                implementation = JvmImplementation.VENDOR_SPECIFIC
+            }
+        }
+        configurations {
+            // Exclude junit-vintage
+            all*.exclude(group: "org.junit.vintage", module: "junit-vintage-engine")
+        }
+    }
+
+    plugins.withId("com.github.spotbugs") {
+        afterEvaluate {
+            // plugin: com.github.spotbugs
+            spotbugs {
+                toolVersion.set("${versions.spotbugsVersion}")
+                ignoreFailures.set(false)
+                showStackTraces.set(true)
+                showProgress.set(true)
+                effort = "max"
+                reportLevel = "high"
+                reportsDir.set(file("${buildDir}/spotbugs"))
+                onlyAnalyze.set(["${group}.-"])
+                maxHeapSize.set("1g")
+            }
+
+            // plugin: com.github.spotbugs
+            spotbugsMain {
+                reports {
+                    xml {
+                        enabled = false
+                    }
+                    html {
+                        enabled = true
+                    }
+                }
+            }
+
+            dependencies {
+                // Use com.github.spotbugs plugin provided version.
+                // https://github.com/spotbugs/spotbugs-gradle-plugin/tree/4.7.0#refer-the-version-in-the-build-script
+                compileOnly("com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}")
+            }
+        }
+    }
+
+}
+
+// plugin: com.github.ben-manes.versions
+dependencyUpdates {
+    revision = "release"
+    checkForGradleUpdate = true
+    gradleReleaseChannel = "current"
+    checkConstraints = true
+    outputFormatter = "plain"
+
+    def isNonStable = { String version ->
+        def stableKeyword = ["RELEASE", "FINAL", "GA"].any { stable -> version.toUpperCase().contains(stable) }
+        def versionRegex = /^[0-9,.v-]+(-r)?$/
+
+        return !stableKeyword && !(version ==~ versionRegex)
+    }
+
+    rejectVersionIf {
+        isNonStable(it.candidate.version)
+    }
+}
