@@ -26,3 +26,9 @@ dependencies {
 tasks.named("test") {
     useJUnitPlatform()
 }
+
+generateGrammarSource {
+    // Add a path to the `-lib` option to allow `import` of the same path in
+    // grammar file ('.g4').
+    arguments += ["-lib", "src/main/antlr/com/github/tt4g/learn/antlr"]
+}
