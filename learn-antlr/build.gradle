@@ -9,7 +9,7 @@ plugins {
 apply(from: rootProject.file("gradle/versions.gradle"))
 
 dependencies {
-    antlr("org.antlr:antlr:${versions.antlrVersion}")
+    antlr("org.antlr:antlr4:${versions.antlrVersion}")
 
     testImplementation(platform("org.junit:junit-bom:${versions.junitVersion}"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
