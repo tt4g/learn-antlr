@@ -57,7 +57,7 @@ allprojects {
             }
 
             // plugin: com.github.spotbugs
-            spotbugsMain {
+            tasks.named("spotbugsMain") {
                 reports {
                     xml {
                         enabled = false
@@ -79,7 +79,7 @@ allprojects {
 }
 
 // plugin: com.github.ben-manes.versions
-dependencyUpdates {
+tasks.named("dependencyUpdates") {
     revision = "release"
     checkForGradleUpdate = true
     gradleReleaseChannel = "current"
