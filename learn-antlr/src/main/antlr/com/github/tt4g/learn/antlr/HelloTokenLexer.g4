@@ -3,4 +3,4 @@
 lexer grammar HelloTokenLexer;
 
 ID : [a-z]+ ;
-WS : [ \t\r\n]+ -> skip ;
+WS : [ \t\r\n]+ -> channel(HIDDEN) ;
