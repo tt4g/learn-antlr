@@ -9,6 +9,7 @@ def projectJdkVersion = 16
 
 allprojects {
     group = "com.github.tt4g.learn.antlr"
+    version = "0.1.0"
 
     repositories {
         mavenCentral()

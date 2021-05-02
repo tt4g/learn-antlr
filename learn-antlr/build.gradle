@@ -7,9 +7,13 @@ plugins {
 }
 
 apply(from: rootProject.file("gradle/versions.gradle"))
+apply(from: rootProject.file("gradle/slf4j-setup.gradle"))
 
 dependencies {
     antlr("org.antlr:antlr4:${versions.antlrVersion}")
+
+    implementation("org.slf4j:slf4j-api:${versions.slf4jVersion}")
+    implementation("ch.qos.logback:logback-classic:${versions.logbackVersion}")
 
     testImplementation(platform("org.junit:junit-bom:${versions.junitVersion}"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")

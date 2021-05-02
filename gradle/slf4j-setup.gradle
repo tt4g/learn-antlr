@@ -1,0 +1,24 @@
+// Setup slf4j bridge and exclude other log libraries.
+
+apply(from: rootProject.file("gradle/versions.gradle"))
+
+plugins.withId("java") {
+
+    plugins.withId("application") {
+        dependencies {
+            // slf4j bridge.
+            runtimeOnly("org.slf4j:jcl-over-slf4j:${versions.slf4jVersion}")
+            runtimeOnly("org.slf4j:log4j-over-slf4j:${versions.slf4jVersion}")
+        }
+    }
+
+    configurations {
+        // Exclude logging API (use slf4j and logback).
+        all*.exclude(group: "log4j")
+        all*.exclude(group: "org.apache.logging.log4j", module: "log4j-slf4j-impl")
+        all*.exclude(group: "org.slf4j", module: "slf4j-log4j12")
+        all*.exclude(group: "org.slf4j", module: "slf4j-jdk14")
+        all*.exclude(group: "commons-logging", module: "commons-logging-api")
+        all*.exclude(group: "commons-logging", module: "commons-logging")
+    }
+}
