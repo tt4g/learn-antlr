@@ -8,14 +8,9 @@ lexer grammar TripleUnderscoreLexer;
 package com.github.tt4g.learn.antlr;
 }
 
-PUSH_TRIPLE_UNDERSCORE: TRIPLE_UNDERSCORE -> mode(IN_TRIPLE_UNDERSCORE_MODE) ;
+TRIPLE_UNDERSCORE_IDENTIFIER: TRIPLE_UNDERSCORE [a-z0-9]+ TRIPLE_UNDERSCORE ;
 fragment TRIPLE_UNDERSCORE: UNDERSCORE UNDERSCORE UNDERSCORE;
 fragment UNDERSCORE: '_' ;
-WS : [ \t\r\n]+ -> skip ;
+// Ignore other pattern.
 IGNORE: . -> skip ;
 
-mode IN_TRIPLE_UNDERSCORE_MODE;
-IDENTIFIER: [a-z0-9]+ ;
-POP_TRIPLE_UNDERSCORE: TRIPLE_UNDERSCORE -> mode(DEFAULT_MODE) ;
-// Ignore other pattern.
-NOT_IDENTIFIER: . -> mode(DEFAULT_MODE) ;

@@ -24,13 +24,23 @@ public class TripleUnderscoreParser {
              token = tripleUnderscoreLexer.nextToken()) {
 
             switch (token.getType()) {
-                case TripleUnderscoreLexer.IDENTIFIER:
-                    identifiers.add(token.getText());
+                case TripleUnderscoreLexer.TRIPLE_UNDERSCORE_IDENTIFIER:
+                    identifiers.add(parseIdentifier(token));
                     break;
             }
         }
 
         return identifiers;
+    }
+
+    @NonNull
+    private String parseIdentifier(@NonNull Token token) {
+        String text = token.getText();
+
+        // Remove "___" prefix and suffix because
+        // `TripleUnderscoreLexer.TRIPLE_UNDERSCORE_IDENTIFIER` matches
+        // prefix "___", identifier and suffix "___".
+        return text.substring(3, text.length() - 3);
     }
 
     private TripleUnderscoreLexer createTripleUnderscoreLexer(
