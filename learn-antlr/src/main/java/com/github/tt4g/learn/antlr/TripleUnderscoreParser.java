@@ -37,9 +37,9 @@ public class TripleUnderscoreParser {
     private String parseIdentifier(@NonNull Token token) {
         String text = token.getText();
 
-        // Remove "___" prefix and suffix because
+        // Remove prefix ("___") and suffix ("___") because
         // `TripleUnderscoreLexer.TRIPLE_UNDERSCORE_IDENTIFIER` matches
-        // prefix "___", identifier and suffix "___".
+        // prefix, identifier and suffix.
         return text.substring(3, text.length() - 3);
     }
 
@@ -50,8 +50,7 @@ public class TripleUnderscoreParser {
         TripleUnderscoreLexer tripleUnderscoreLexer =
             new TripleUnderscoreLexer(charStream);
 
-        // Remove default listeners (`ConsoleErrorListener`).
-        tripleUnderscoreLexer.removeErrorListeners();
+        LexerUtils.removeDefaultErrorListener(tripleUnderscoreLexer);
         tripleUnderscoreLexer.addErrorListener(
             new TripleUnderscoreErrorListener());
 

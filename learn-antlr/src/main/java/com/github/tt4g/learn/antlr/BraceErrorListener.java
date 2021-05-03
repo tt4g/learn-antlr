@@ -11,10 +11,10 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class TripleUnderscoreErrorListener implements ANTLRErrorListener {
+class BraceErrorListener implements ANTLRErrorListener {
 
     private static final Logger LOGGER =
-        LoggerFactory.getLogger(TripleUnderscoreErrorListener.class);
+        LoggerFactory.getLogger(BraceErrorListener.class);
 
     @Override
     public void syntaxError(
@@ -86,4 +86,5 @@ class TripleUnderscoreErrorListener implements ANTLRErrorListener {
         throw new ParsingException(
             "Report context sensitivity, but this method is never called by Lexer.");
     }
+
 }

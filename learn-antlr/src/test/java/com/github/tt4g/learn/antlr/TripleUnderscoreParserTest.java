@@ -12,7 +12,7 @@ class TripleUnderscoreParserTest {
         new TripleUnderscoreParser();
 
     @Test
-    public void parseWhenSingleValidTripleUnderScoreThenParsedIdentifier() {
+    public void parseWhenSingleTripleUnderScoreThenParsedIdentifier() {
         assertThat(this.tripleUnderscoreParser.parse("___foo0123___"))
             .containsOnly("foo0123");
         assertThat(this.tripleUnderscoreParser.parse("Hello, \n___bar___\n  World!"))
@@ -33,9 +33,22 @@ class TripleUnderscoreParserTest {
         "___foo ___",
         "___ foo___",
         "___ f o o___",
+        "__ _foo_ __",
+        "__ _ foo _ __,",
+        "_ __foo__ _",
+        "_ __ foo __ _",
+        "_ _ _foo_ _ _",
+        "_ _ _ foo _ _ _",
+        "___ _foo_ ___",
         "___foo bar baz___",
         "___❨╯°□°❩╯︵┻━┻___",
         "______foo__ ___foo__",
+        "___foo\n___",
+        "___\nfoo___",
+        "___\nfoo\n___",
+        "___foo\r\n___",
+        "___\r\nfoo___",
+        "___\r\nfoo\r\n___"
     })
     public void parseWhenSingleInvalidTripleUnderScoreThenNotParsed(String input) {
         assertThat(this.tripleUnderscoreParser.parse(input))
@@ -44,21 +57,6 @@ class TripleUnderscoreParserTest {
 
     @Test
     public void parseWhenRepeatTripleUnderScore() {
-        assertThat(this.tripleUnderscoreParser.parse("__ _foo_ __"))
-            .isEmpty();
-        assertThat(this.tripleUnderscoreParser.parse("__ _ foo _ __"))
-            .isEmpty();
-        assertThat(this.tripleUnderscoreParser.parse("_ __foo__ _"))
-            .isEmpty();
-        assertThat(this.tripleUnderscoreParser.parse("_ __ foo __ _"))
-            .isEmpty();
-        assertThat(this.tripleUnderscoreParser.parse("_ _ _foo_ _ _"))
-            .isEmpty();
-        assertThat(this.tripleUnderscoreParser.parse("_ _ _ foo _ _ _"))
-            .isEmpty();
-        assertThat(this.tripleUnderscoreParser.parse("___ _foo_ ___"))
-            .isEmpty();
-
         assertThat(this.tripleUnderscoreParser.parse("___ ___foo___ ___"))
             .containsOnly("foo");
         assertThat(this.tripleUnderscoreParser.parse("___ ___ ___foo___ ___ ___"))
