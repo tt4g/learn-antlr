@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.Token;
 
 /**
- * Parse <code>___${IDENTIFIER}___</code>.<br>
+ * Parse <code>"___"${IDENTIFIER}"___"</code>.<br>
  */
 public class TripleUnderscoreParser {
 
