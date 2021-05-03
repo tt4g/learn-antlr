@@ -34,7 +34,7 @@ public class BraceParser {
     }
 
     @NonNull
-    private String parseIdentifier(@NonNull Token token) {
+    static String parseIdentifier(@NonNull Token token) {
         String text = token.getText();
 
         // Remove prefix ("{{") and suffix ("}}") because
