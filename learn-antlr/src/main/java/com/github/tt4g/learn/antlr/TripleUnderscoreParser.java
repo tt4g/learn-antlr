@@ -14,7 +14,7 @@ import org.antlr.v4.runtime.Token;
 public class TripleUnderscoreParser {
 
     @NonNull
-    List<String> parse(@NonNull String input) {
+    public List<String> parse(@NonNull String input) {
         TripleUnderscoreLexer tripleUnderscoreLexer =
             createTripleUnderscoreLexer(CharStreams.fromString(input));
 
@@ -43,6 +43,7 @@ public class TripleUnderscoreParser {
         return text.substring(3, text.length() - 3);
     }
 
+    @NonNull
     private TripleUnderscoreLexer createTripleUnderscoreLexer(
         @NonNull CharStream charStream) {
 
