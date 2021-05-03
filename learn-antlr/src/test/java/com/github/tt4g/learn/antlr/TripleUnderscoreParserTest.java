@@ -12,7 +12,7 @@ class TripleUnderscoreParserTest {
         new TripleUnderscoreParser();
 
     @Test
-    public void parseWhenSingleTripleUnderScoreThenParsedIdentifier() {
+    public void parseWhenSingleTripleUnderscoreThenParsedIdentifier() {
         assertThat(this.tripleUnderscoreParser.parse("___foo0123___"))
             .containsExactly("foo0123");
         assertThat(this.tripleUnderscoreParser.parse("Hello, \n___bar___\n  World!"))
@@ -50,13 +50,13 @@ class TripleUnderscoreParserTest {
         "___\r\nfoo___",
         "___\r\nfoo\r\n___"
     })
-    public void parseWhenSingleInvalidTripleUnderScoreThenNotParsed(String input) {
+    public void parseWhenSingleInvalidTripleUnderscoreThenNotParsed(String input) {
         assertThat(this.tripleUnderscoreParser.parse(input))
             .isEmpty();
     }
 
     @Test
-    public void parseWhenRepeatTripleUnderScore() {
+    public void parseWhenRepeatTripleUnderscore() {
         assertThat(this.tripleUnderscoreParser.parse("___ ___foo___ ___"))
             .containsExactly("foo");
         assertThat(this.tripleUnderscoreParser.parse("___ ___ ___foo___ ___ ___"))
