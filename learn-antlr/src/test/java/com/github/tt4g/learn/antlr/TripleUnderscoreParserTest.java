@@ -14,13 +14,13 @@ class TripleUnderscoreParserTest {
     @Test
     public void parseWhenSingleTripleUnderScoreThenParsedIdentifier() {
         assertThat(this.tripleUnderscoreParser.parse("___foo0123___"))
-            .containsOnly("foo0123");
+            .containsExactly("foo0123");
         assertThat(this.tripleUnderscoreParser.parse("Hello, \n___bar___\n  World!"))
-            .containsOnly("bar");
+            .containsExactly("bar");
         assertThat(this.tripleUnderscoreParser.parse("Hello, \r\n___0___\r\n  World!"))
-            .containsOnly("0");
+            .containsExactly("0");
         assertThat(this.tripleUnderscoreParser.parse("___ ___foo___ ___"))
-            .containsOnly("foo");
+            .containsExactly("foo");
     }
 
     @ParameterizedTest
@@ -58,9 +58,9 @@ class TripleUnderscoreParserTest {
     @Test
     public void parseWhenRepeatTripleUnderScore() {
         assertThat(this.tripleUnderscoreParser.parse("___ ___foo___ ___"))
-            .containsOnly("foo");
+            .containsExactly("foo");
         assertThat(this.tripleUnderscoreParser.parse("___ ___ ___foo___ ___ ___"))
-            .containsOnly("foo");
+            .containsExactly("foo");
         assertThat(this.tripleUnderscoreParser.parse("___ ___ foo ___ ___"))
             .isEmpty();
         assertThat(this.tripleUnderscoreParser.parse("___ ___ ___ foo ___ ___ ___"))
@@ -81,7 +81,7 @@ class TripleUnderscoreParserTest {
             "______ foo ______ ______ foo ______ ______ foo ______"))
             .isEmpty();
         assertThat(this.tripleUnderscoreParser.parse("___ foo ___bar___ qux___"))
-            .containsOnly("bar");
+            .containsExactly("bar");
 
         assertThat(this.tripleUnderscoreParser.parse("___ foo___  ___bar ___"))
             .isEmpty();
@@ -104,17 +104,17 @@ class TripleUnderscoreParserTest {
             .isEmpty();
 
         assertThat(this.tripleUnderscoreParser.parse("foo___bar___baz___"))
-            .containsOnly("bar");
+            .containsExactly("bar");
         assertThat(this.tripleUnderscoreParser.parse("foo___bar____baz___"))
-            .containsOnly("bar");
+            .containsExactly("bar");
         assertThat(this.tripleUnderscoreParser.parse("foo___bar_____baz___"))
-            .containsOnly("bar");
+            .containsExactly("bar");
         assertThat(this.tripleUnderscoreParser.parse("foo___bar______baz___"))
-            .containsOnly("bar", "baz");
+            .containsExactly("bar", "baz");
         assertThat(this.tripleUnderscoreParser.parse("___foo___bar______baz___"))
-            .containsOnly("foo", "baz");
+            .containsExactly("foo", "baz");
         assertThat(this.tripleUnderscoreParser.parse("___foo______bar___baz___"))
-            .containsOnly("foo", "bar");
+            .containsExactly("foo", "bar");
     }
 
 }

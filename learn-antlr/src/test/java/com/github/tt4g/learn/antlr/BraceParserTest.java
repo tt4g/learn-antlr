@@ -14,19 +14,19 @@ class BraceParserTest {
     @Test
     public void parseWhenSingleBracesThenParseIdentifier() {
         assertThat(this.braceParser.parse("{{foo}}"))
-            .containsOnly("foo");
+            .containsExactly("foo");
         assertThat(this.braceParser.parse("{{01foo23}}"))
-            .containsOnly("01foo23");
+            .containsExactly("01foo23");
         assertThat(this.braceParser.parse("{{0}}"))
-            .containsOnly("0");
+            .containsExactly("0");
 
         assertThat(this.braceParser.parse("Hello, {{bar}}"))
-            .containsOnly("bar");
+            .containsExactly("bar");
         assertThat(this.braceParser.parse("Hello,\n{{bar}}!"))
-            .containsOnly("bar");
+            .containsExactly("bar");
 
         assertThat(this.braceParser.parse("{{ {{foo}} }}"))
-            .containsOnly("foo");
+            .containsExactly("foo");
     }
 
     @ParameterizedTest
@@ -61,9 +61,9 @@ class BraceParserTest {
     @Test
     public void parseWhenRepeatBracesThenParseIdentifier() {
         assertThat(this.braceParser.parse("{{ {{foo}} }}"))
-            .containsOnly("foo");
+            .containsExactly("foo");
         assertThat(this.braceParser.parse("{{ {{ {{foo}} }} }}"))
-            .containsOnly("foo");
+            .containsExactly("foo");
         assertThat(this.braceParser.parse("{{ {{ foo }} }}"))
             .isEmpty();
         assertThat(this.braceParser.parse("{}{foo}}}"))
@@ -72,16 +72,16 @@ class BraceParserTest {
             .isEmpty();
 
         assertThat(this.braceParser.parse("{{foo}}{{bar}}"))
-            .containsOnly("foo", "bar");
+            .containsExactly("foo", "bar");
         assertThat(this.braceParser.parse("{{foo}}   {{bar}}"))
-            .containsOnly("foo", "bar");
+            .containsExactly("foo", "bar");
         assertThat(this.braceParser.parse("{{foo}}{{bar}}}}{{{{baz}}}}"))
-            .containsOnly("foo", "bar", "baz");
+            .containsExactly("foo", "bar", "baz");
 
         assertThat(this.braceParser.parse("{{ foo }} {{bar }} {{ baz}}"))
             .isEmpty();
         assertThat(this.braceParser.parse("{{foo}{{bar}}{{baz}"))
-            .containsOnly("bar");
+            .containsExactly("bar");
         assertThat(this.braceParser.parse("{{ foo}}{{bar }}"))
             .isEmpty();
         assertThat(this.braceParser.parse("foo}} {{bar baz}}"))
