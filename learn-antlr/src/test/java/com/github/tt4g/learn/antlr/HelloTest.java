@@ -106,6 +106,9 @@ public class HelloTest {
         CommonTokenStream commonTokenStream = new CommonTokenStream(helloLexer);
 
         HelloParser helloParser = new HelloParser(commonTokenStream);
+        // Remove default error listeners.
+        helloParser.removeErrorListeners();
+
         HelloTestListener helloTestListener = new HelloTestListener(commonTokenStream);
 
         ParseTreeWalker.DEFAULT.walk(helloTestListener, helloParser.r());
