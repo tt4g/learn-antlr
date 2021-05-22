@@ -3,8 +3,4 @@
 grammar Hello;
 import HelloTokenLexer;
 
-@header {
-package com.github.tt4g.learn.antlr;
-}
-
 r : 'hello' ID ;

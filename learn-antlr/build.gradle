@@ -37,6 +37,8 @@ tasks.named("generateGrammarSource").configure {
     // Add a path to the `-lib` option to allow `import` of the same path in
     // grammar file ('.g4').
     arguments += ["-lib", "${antlrBaseDirectory}/com/github/tt4g/learn/antlr".toString()]
+    // Specify java package.
+    arguments += ["-package", "com.github.tt4g.learn.antlr"]
     // Exclude `*TokenLexer.g4` that is token definition only.
     excludes += "**/*TokenLexer.g4"
     // Since `*TokenLexer.g4` is excluded by `excludes += "**/*TokenLexer.g4"`,
