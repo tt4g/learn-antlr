@@ -7,4 +7,4 @@ lexer grammar BraceAndUnderscoreLexer;
 import BraceTokenLexer, TripleUnderscoreTokenLexer;
 
 // Ignore other pattern.
-IGNORE: . -> skip ;
+IGNORE : . -> skip ;
