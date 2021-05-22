@@ -27,14 +27,21 @@ dependencies {
     testImplementation("org.assertj:assertj-core:${versions.assertjVersion}")
 }
 
-tasks.named("test") {
+tasks.named("test").configure {
     useJUnitPlatform()
 }
 
-tasks.named("generateGrammarSource") {
+tasks.named("generateGrammarSource").configure {
+    def antlrBaseDirectory = "src/main/antlr";
+
     // Add a path to the `-lib` option to allow `import` of the same path in
     // grammar file ('.g4').
-    arguments += ["-lib", "src/main/antlr/com/github/tt4g/learn/antlr"]
+    arguments += ["-lib", "${antlrBaseDirectory}/com/github/tt4g/learn/antlr".toString()]
     // Exclude `*TokenLexer.g4` that is token definition only.
     excludes += "**/*TokenLexer.g4"
+    // Since `*TokenLexer.g4` is excluded by `excludes += "**/*TokenLexer.g4"`,
+    // it is also excluded from `inputs`.
+    // Add all files to `inputs` so that all grammars will be generated when
+    // `*TokenLexer.g4` is modified.
+    inputs.files(fileTree(antlrBaseDirectory))
 }
